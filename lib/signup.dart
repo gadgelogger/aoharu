@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:teamc/manage.dart';
-import 'package:teamc/signin.dart';
 
-
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Signup extends StatefulWidget {
+  const Signup({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +29,7 @@ class _LoginState extends State<Login> {
                       top: 110,
                       left: 20,
                     ),
-                    child: Text('Welcome',
+                    child: Text('Signup',
                         style: TextStyle(
                             fontSize: 60.0, fontWeight: FontWeight.bold)),
                   ),
@@ -51,47 +47,39 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 50,
-            width: 300,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(
-                    builder: (builder) => const Manege(),
-                  ),
-                );
-              },
-              child: const Text('ログイン'),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'パスワード',
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(6),
+              child: Row(
+                children: <Widget>[
+                  Checkbox(
+                    value: false,
+                    onChanged: (bool? value) {},
+                  ),
+                  const Text('利用規約とプライバシーポリシーに同意します'),
+                ],
+              ),
+            ),
             SizedBox(
               height: 50,
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_emailController.text.isNotEmpty &&
-                      _passwordController.text.isNotEmpty) {
-                    // Navigate to the next screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Main()),
-                    );
-                  } else {
-                    setState(() {
-                      _errorMessage = 'メールアドレスとパスワードを入力してください';
-                    });
-                  }
+                  // TODO: Implement login functionality
                 },
-                child: const Text('ログイン'),
+                child: const Text('新規会員登録'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -106,13 +94,10 @@ class _LoginState extends State<Login> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Signup()),
-                  );
+                  Navigator.pop(context);
                 },
                 child: const Text(
-                  '新規会員登録はこちら',
+                  '戻る',
                   style: TextStyle(color: Colors.black),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -124,14 +109,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            if (_errorMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  _errorMessage,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
           ],
         ),
       ),
