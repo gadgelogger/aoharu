@@ -50,16 +50,6 @@ class _ManegeState extends State<Manege> {
           index: currentTabIndex,
           children: pages,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.black,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (builder) => CreatePost()));
-            },
-            child: const Icon(
-              Icons.add,
-            )),
         bottomNavigationBar: ConvexAppBar(
           color: Colors.grey,
           activeColor: Colors.black,
