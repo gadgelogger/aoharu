@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226228245618",
+    "project_id": "aoharu-f76ae",
+    "storage_bucket": "aoharu-f76ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226228245618:android:ea3356a6958c4517cedeeb",
+        "android_client_info": {
+          "package_name": "com.example.debug_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk-ajWTlz42Ppp1taNSXkqOhjp1hWnLx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
