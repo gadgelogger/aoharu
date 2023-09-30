@@ -6,7 +6,7 @@ import 'firebase_options.dart';
 
 void main() async {
   // OpenAiのAPIキー設定
-  OpenAI.apiKey = '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';
+  OpenAI.apiKey = '';
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
