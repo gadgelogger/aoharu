@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teamc/main_page.dart';
-import 'package:teamc/signin.dart';
+import 'package:teamc/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
               height: 50,
               width: 300,
               child: ElevatedButton(
-               onPressed: () {
+                onPressed: () {
                   if (_emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
                     // Navigate to the next screen
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Signin()),
+                    MaterialPageRoute(builder: (context) => const Signup()),
                   );
                 },
                 child: const Text(

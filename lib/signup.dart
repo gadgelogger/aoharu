@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Signin extends StatefulWidget {
-  const Signin({Key? key}) : super(key: key);
+class Signup extends StatefulWidget {
+  const Signup({Key? key}) : super(key: key);
 
   @override
-  State<Signin> createState() => _SigninState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _SigninState extends State<Signin> {
+class _SignupState extends State<Signup> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
