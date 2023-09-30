@@ -8,8 +8,14 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  //フィールドコントローラー
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  //
+  // 入力されたメールアドレス
+  String newUserEmail = "";
+  // 入力されたパスワード
+  String newUserPassword = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,11 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'メールアドレス',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    newUserEmail = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 20),
@@ -57,6 +68,11 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'パスワード',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    newUserPassword = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 10),
