@@ -72,9 +72,10 @@ class _LoginState extends State<Login> {
                   if (_emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
                     // Navigate to the next screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Manege()),
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(
+                        builder: (builder) => const Manege(),
+                      ),
                     );
                   } else {
                     setState(() {
