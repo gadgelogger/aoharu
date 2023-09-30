@@ -11,6 +11,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,18 @@ class _LoginState extends State<Login> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Implement login functionality
+                  if (_emailController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty) {
+                    // Navigate to the next screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Signin()),
+                    );
+                  } else {
+                    setState(() {
+                      _errorMessage = 'メールアドレスとパスワードを入力してください';
+                    });
+                  }
                 },
                 child: const Text('ログイン'),
                 style: ElevatedButton.styleFrom(
@@ -101,6 +113,14 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
+            if (_errorMessage.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  _errorMessage,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
           ],
         ),
       ),
