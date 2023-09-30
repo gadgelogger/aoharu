@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teamc/create_post.dart';
 import 'package:teamc/login.dart';
 
 void main() {
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
-      home: const Login(),
+      home: CreatePost(),
     );
   }
 }
