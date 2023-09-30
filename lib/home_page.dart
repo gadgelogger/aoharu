@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const TextField(),
           SizedBox(
             width: 500,
             height: 300,
@@ -67,25 +66,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          // Stack(
-          //   children: [
-          //     SizedBox(
-          //       height: 160,
-          //       width: 280,
-          //       child: Card(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(34),
-          //         ),
-          //         child: Column(
-          //           children: const [
-          //             Text('Tomato'),
-          //             Text('前から好きだったんだよね。付き合わない')
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );
