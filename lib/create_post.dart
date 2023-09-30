@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
 
+enum Consult_Choices { both_consult, girl_consult, boy_consult }
+
+enum Subject_Choices { both_subject, girl_subject, boy_subject }
+
 class CreatePost extends StatefulWidget {
+  const CreatePost({Key? key}) : super(key: key);
+
   @override
   State<CreatePost> createState() => _CreatePostState();
 }
 
 class _CreatePostState extends State<CreatePost> {
+  Consult_Choices? _consultChoice = Consult_Choices.both_consult;
+  Subject_Choices? _subjectChoice = Subject_Choices.both_subject;
   final _userInputController = TextEditingController();
-
-  bool _boyGirl = false;
-  bool _girl = false;
-  bool _boy = false;
-  bool _both = false;
-  bool _girlSubject = false;
-  bool _boySubject = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -59,165 +53,131 @@ class _CreatePostState extends State<CreatePost> {
               ),
               Container(
                 alignment: Alignment.bottomLeft,
-                child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("両方"), // figmaでは男女だったのですが、変えました。
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _boyGirl,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _boyGirl = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("女性"),
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _girl,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _girl = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("男性"),
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _boy,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _boy = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "恋愛対象を選択してください",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("両方"),
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _both,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _both = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("女性"),
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _girlSubject,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _girlSubject = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("男性"),
-                      const SizedBox(
-                        width: 200,
-                      ),
-                      Checkbox(
-                        value: _boySubject,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _boySubject = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 200,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), //こちらを適用
+                child: Column(
+                  children: [
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("両方"),
+                      value: Consult_Choices.both_consult,
+                      groupValue: _consultChoice,
+                      onChanged: (Consult_Choices? value) {
+                        setState(() {
+                          _consultChoice = value;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("女性"),
+                      value: Consult_Choices.girl_consult,
+                      groupValue: _consultChoice,
+                      onChanged: (Consult_Choices? value) {
+                        setState(() {
+                          _consultChoice = value;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("男性"),
+                      value: Consult_Choices.boy_consult,
+                      groupValue: _consultChoice,
+                      onChanged: (Consult_Choices? value) {
+                        setState(() {
+                          _consultChoice = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "恋愛対象を選択してください",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("両方"),
+                      value: Subject_Choices.both_subject,
+                      groupValue: _subjectChoice,
+                      onChanged: (Subject_Choices? value) {
+                        setState(() {
+                          _subjectChoice = value;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("女性"),
+                      value: Subject_Choices.girl_subject,
+                      groupValue: _subjectChoice,
+                      onChanged: (Subject_Choices? value) {
+                        setState(() {
+                          _subjectChoice = value;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: const Text("両方"),
+                      value: Subject_Choices.boy_subject,
+                      groupValue: _subjectChoice,
+                      onChanged: (Subject_Choices? value) {
+                        setState(() {
+                          _subjectChoice = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), //こちらを適用
+                          ),
+                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                         ),
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "投稿する",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                        onPressed: () {},
+                        child: const Text(
+                          "投稿する",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 250,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), //こちらを適用
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), //こちらを適用
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
                         ),
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "AIに相談する",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontWeight: FontWeight.bold,
+                        onPressed: () {},
+                        child: const Text(
+                          "AIに相談する",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
-              )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
