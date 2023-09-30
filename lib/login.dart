@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teamc/main_page.dart';
-import 'package:teamc/signup.dart';
+import 'package:teamc/manage.dart';
+import 'package:teamc/signin.dart';
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -50,15 +51,24 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'パスワード',
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 50,
+            width: 300,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute<void>(
+                    builder: (builder) => const Manege(),
+                  ),
+                );
+              },
+              child: const Text('ログイン'),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+
                 ),
               ),
             ),
