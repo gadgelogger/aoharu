@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:teamc/home_page.dart';
 import 'package:teamc/page1.dart';
@@ -29,43 +30,35 @@ class _ManegeState extends State<Manege> {
   @override
   Widget build(BuildContext context) {
     // ボトムバー
-    List<BottomNavigationBarItem> bottomBars = [
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'ホーム',
+    List<TabItem> bottomBars = [
+      const TabItem(
+        icon: Icons.home,
+        title: 'ホーム',
       ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.add),
-        label: '',
+      const TabItem(
+        icon: Icons.add,
+        title: 'aaa',
       ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.chat),
-        label: '添削',
+      const TabItem(
+        icon: Icons.chat,
+        title: '添削',
       )
     ];
 
     return Scaffold(
-        body: IndexedStack(
-          index: currentTabIndex,
-          children: pages,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blue,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (builder) => CreatePost()));
-            },
-            child: const Icon(Icons.send)
-            // Icon(Icons.add),
-            ),
-        bottomNavigationBar: BottomNavigationBar(
-            onTap: (int index) {
-              if (index != 1) {
-                onTapped(index);
-              }
-            },
-            currentIndex: currentTabIndex,
-            items: bottomBars));
+      body: IndexedStack(
+        index: currentTabIndex,
+        children: pages,
+      ),
+      bottomNavigationBar: ConvexAppBar(
+        color: Colors.grey,
+        activeColor: Colors.black,
+        backgroundColor: Colors.white,
+        shadowColor: Colors.brown,
+        style: TabStyle.fixedCircle,
+        items: bottomBars,
+        onTap: (int index) => onTapped(index),
+      ),
+    );
   }
 }
