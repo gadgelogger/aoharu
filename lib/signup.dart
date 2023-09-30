@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:teamc/home_page.dart';
+import 'package:teamc/show_snack_bar.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -49,11 +49,10 @@ class _SignupState extends State<Signup> {
         infoText = "登録OK：${user.email}";
       });
 
-      // サインインが成功したら画面遷移する
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      // サインインが成功したらログイン画面に画面遷移する
+      Navigator.pop(context);
+      showSnackBar(context, "アカウントを新規作成しました！");
+
     } catch (e) {
       // 登録に失敗した場合
       setState(() {
