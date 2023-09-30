@@ -51,14 +51,14 @@ class _ManegeState extends State<Manege> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.black,
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (builder) => CreatePost()));
             },
-            child: const Icon(Icons.send)
-            // Icon(Icons.add),
-            ),
+            child: const Icon(
+              Icons.add,
+            )),
         bottomNavigationBar: BottomNavigationBar(
             onTap: (int index) {
               if (index != 1) {
