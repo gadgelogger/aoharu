@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teamc/page1.dart';
 import 'package:teamc/page2.dart';
 import 'package:teamc/page3.dart';
 
 import 'EmptyAppBar.dart';
+import 'ai_check/ai_check_page.dart';
 
 // メイン画面
 class Main extends StatefulWidget {
@@ -27,7 +29,10 @@ class _MainState extends State<Main> {
   List<Widget> pages = [
     page1(),
     page2(),
-    page3(),
+    const ProviderScope(
+      child: AiCheckPage(),
+    ),
+
   ];
 
   @override

@@ -1,7 +1,10 @@
+import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 import 'package:teamc/login.dart';
 
 void main() {
+  OpenAI.apiKey = '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';
+
   runApp(const MyApp());
 }
 
