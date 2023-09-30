@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Page2 extends StatelessWidget {
+class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('2'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('2'),
+      ),
+      body: const Text('2'),
     );
   }
 }

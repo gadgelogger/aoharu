@@ -21,8 +21,8 @@ class _ManegeState extends State<Manege> {
   // 表示するページ一覧
   List<Widget> pages = [
     const HomePage(),
+    AddPage(),
     Page1(),
-    Page2(),
   ];
 
   @override
@@ -52,7 +52,8 @@ class _ManegeState extends State<Manege> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue,
             onPressed: () {
-              // TODO 投稿画面に画面遷移させる
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (builder) => AddPage()));
             },
             child: const Icon(Icons.send)
             // Icon(Icons.add),
