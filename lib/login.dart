@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teamc/main_page.dart';
 import 'package:teamc/signin.dart';
 
 class Login extends StatefulWidget {
@@ -66,13 +67,13 @@ class _LoginState extends State<Login> {
               height: 50,
               width: 300,
               child: ElevatedButton(
-                onPressed: () {
+               onPressed: () {
                   if (_emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
                     // Navigate to the next screen
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Signin()),
+                      MaterialPageRoute(builder: (context) => const Main()),
                     );
                   } else {
                     setState(() {
