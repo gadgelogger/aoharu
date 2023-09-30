@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:teamc/home_page.dart';
 import 'package:teamc/manage.dart';
 import 'package:teamc/signup.dart';
 
@@ -10,9 +12,20 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  //フィールドコントローラー
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String _errorMessage = '';
+  // 入力されたメールアドレス
+  String newUserEmail = "";
+  // 入力されたパスワード
+  String newUserPassword = "";
+  // 入力されたメールアドレス（ログイン）
+  String loginUserEmail = "";
+  // 入力されたパスワード（ログイン）
+  String loginUserPassword = "";
+  // 登録・ログインに関する情報を表示
+  String infoText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +61,11 @@ class _LoginState extends State<Login> {
                   border: OutlineInputBorder(),
                   labelText: 'メールアドレス',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    loginUserEmail = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 20),
@@ -61,6 +79,11 @@ class _LoginState extends State<Login> {
                   border: OutlineInputBorder(),
                   labelText: 'パスワード',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    loginUserPassword = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 20),
@@ -68,15 +91,36 @@ class _LoginState extends State<Login> {
               height: 50,
               width: 300,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
-                    // Navigate to the next screen
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<void>(
-                        builder: (builder) => const Manege(),
-                      ),
-                    );
+                    try {
+                      // メール/パスワードでログイン
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                      final UserCredential result =
+                          await auth.signInWithEmailAndPassword(
+                        email: loginUserEmail,
+                        password: loginUserPassword,
+                      );
+
+                      // ログインに成功した場合
+                      final User user = result.user!;
+                      setState(() {
+                        infoText = "ログインOK：${user.email}";
+                      });
+
+                      // ログインが成功したら画面遷移する
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (builder) => const Manege(),
+                        ),
+                      );
+                    } catch (e) {
+                      // ログインに失敗した場合
+                      setState(() {
+                        infoText = "ログインNG：${e.toString()}";
+                      });
+                    }
                   } else {
                     setState(() {
                       _errorMessage = 'メールアドレスとパスワードを入力してください';

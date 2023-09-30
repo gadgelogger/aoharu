@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teamc/show_snack_bar.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -8,8 +10,56 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  //フィールドコントローラー
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isChecked = false;
+
+  // 入力されたメールアドレス
+  String newUserEmail = "";
+  // 入力されたパスワード
+  String newUserPassword = "";
+  // 登録・ログインに関する情報を表示
+  String infoText = "";
+
+  // チェックボックスの状態を更新する
+  void _onCheck(bool? value) {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+  }
+
+// ボタンを押したときの処理
+  void _onPressed() async {
+    if (!_isChecked) {
+      return null;
+    }
+
+    try {
+      // メール/パスワードでユーザー登録
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: newUserEmail,
+        password: newUserPassword,
+      );
+
+      // 登録したユーザー情報
+      final User user = result.user!;
+      setState(() {
+        infoText = "登録OK：${user.email}";
+      });
+
+      // サインインが成功したらログイン画面に画面遷移する
+      Navigator.pop(context);
+      showSnackBar(context, "アカウントを新規作成しました！");
+
+    } catch (e) {
+      // 登録に失敗した場合
+      setState(() {
+        infoText = "登録NG：${e.toString()}";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +95,11 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'メールアドレス',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    newUserEmail = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 20),
@@ -57,6 +112,11 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'パスワード',
                 ),
+                onChanged: (String value) {
+                  setState(() {
+                    newUserPassword = value;
+                  });
+                },
               ),
             ),
             const SizedBox(height: 10),
@@ -65,8 +125,8 @@ class _SignupState extends State<Signup> {
               child: Row(
                 children: <Widget>[
                   Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {},
+                    value: _isChecked,
+                    onChanged: _onCheck,
                   ),
                   const Text('利用規約とプライバシーポリシーに同意します'),
                 ],
@@ -76,9 +136,7 @@ class _SignupState extends State<Signup> {
               height: 50,
               width: 300,
               child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Implement login functionality
-                },
+                onPressed: _isChecked ? _onPressed : null,
                 child: const Text('新規会員登録'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
