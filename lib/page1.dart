@@ -1,18 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// テストページ
-class page1 extends StatefulWidget {
-  @override
-  _StationInformationPageState createState() => _StationInformationPageState();
-}
-
-class _StationInformationPageState extends State<page1> {
+class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Container(
-      color: Colors.red,
-    ));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('2'),
+      ),
+      body: const Text('1'),
+    );
   }
 }

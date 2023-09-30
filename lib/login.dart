@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:teamc/main_page.dart';
-import 'package:teamc/signin.dart';
+import 'package:teamc/manage.dart';
+import 'package:teamc/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             const SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -67,10 +69,19 @@ class _LoginState extends State<Login> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Main()),
-                  );
+                  if (_emailController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty) {
+                    // Navigate to the next screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(
+                        builder: (builder) => const Manege(),
+                      ),
+                    );
+                  } else {
+                    setState(() {
+                      _errorMessage = 'メールアドレスとパスワードを入力してください';
+                    });
+                  }
                 },
                 child: const Text('ログイン'),
                 style: ElevatedButton.styleFrom(
@@ -89,7 +100,7 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Signin()),
+                    MaterialPageRoute(builder: (context) => const Signup()),
                   );
                 },
                 child: const Text(
@@ -105,6 +116,14 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
+            if (_errorMessage.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  _errorMessage,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
           ],
         ),
       ),

@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teamc/page1.dart';
-import 'package:teamc/page2.dart';
-import 'package:teamc/page3.dart';
+import 'package:teamc/home_page.dart';
 
-import 'EmptyAppBar.dart';
 import 'ai_check/ai_check_page.dart';
+import 'create_post.dart';
 
-// メイン画面
-class Main extends StatefulWidget {
-  Main() : super();
+class Manege extends StatefulWidget {
+  const Manege({Key? key}) : super(key: key);
 
   @override
-  _MainState createState() => _MainState();
+  State<Manege> createState() => _ManegeState();
 }
 
-class _MainState extends State<Main> {
-
-  // 選択中のボトムバーの値
+class _ManegeState extends State<Manege> {
   int currentTabIndex = 0;
 
   // タップした際の挙動
@@ -27,12 +22,11 @@ class _MainState extends State<Main> {
 
   // 表示するページ一覧
   List<Widget> pages = [
-    page1(),
-    page2(),
+    const HomePage(),
+    CreatePost(),
     const ProviderScope(
       child: AiCheckPage(),
-    ),
-
+    )
   ];
 
   @override
@@ -40,21 +34,20 @@ class _MainState extends State<Main> {
     // ボトムバー
     List<BottomNavigationBarItem> bottomBars = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: '111',
+        icon: Icon(Icons.home),
+        label: 'ホーム',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: '222',
+        icon: Icon(Icons.add),
+        label: '',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: '333',
+        icon: Icon(Icons.chat),
+        label: '添削',
       )
     ];
 
     return Scaffold(
-        appBar: EmptyAppBar(),
         body: IndexedStack(
           index: currentTabIndex,
           children: pages,
@@ -63,7 +56,8 @@ class _MainState extends State<Main> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue,
             onPressed: () {
-              // TODO 投稿画面に画面遷移させる
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CreatePost()));
             },
             child: const Icon(Icons.send)
             // Icon(Icons.add),
