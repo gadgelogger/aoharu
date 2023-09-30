@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CreatePost extends StatefulWidget {
   @override
@@ -19,13 +18,20 @@ class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               const SizedBox(
-                width: 120,
-                height: 120,
+                width: 60,
+                height: 60,
               ),
               const Text(
                 "告白の言葉",
@@ -197,7 +203,8 @@ class _CreatePostState extends State<CreatePost> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20), //こちらを適用
                         ),
-                        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
                       ),
                       onPressed: () {},
                       child: const Text(

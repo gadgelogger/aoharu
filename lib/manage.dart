@@ -46,19 +46,28 @@ class _ManegeState extends State<Manege> {
     ];
 
     return Scaffold(
-      body: IndexedStack(
-        index: currentTabIndex,
-        children: pages,
-      ),
-      bottomNavigationBar: ConvexAppBar(
-        color: Colors.grey,
-        activeColor: Colors.black,
-        backgroundColor: Colors.white,
-        shadowColor: Colors.brown,
-        style: TabStyle.fixedCircle,
-        items: bottomBars,
-        onTap: (int index) => onTapped(index),
-      ),
-    );
+        body: IndexedStack(
+          index: currentTabIndex,
+          children: pages,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CreatePost()));
+            },
+            child: const Icon(
+              Icons.add,
+            )),
+        bottomNavigationBar: ConvexAppBar(
+          color: Colors.grey,
+          activeColor: Colors.black,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.brown,
+          style: TabStyle.fixedCircle,
+          items: bottomBars,
+          onTap: (int index) => onTapped(index),
+        ));
   }
 }
