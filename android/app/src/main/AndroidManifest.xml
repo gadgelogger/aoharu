@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.teamc">
-   <application
-        android:label="teamc"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="debug_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
