@@ -110,10 +110,10 @@ class _LoginState extends State<Login> {
                       });
 
                       // ログインが成功したら画面遷移する
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (builder) => const Manege(),
+                        ),
                       );
                     } catch (e) {
                       // ログインに失敗した場合
