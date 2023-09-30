@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teamc/main_page.dart';
 import 'package:teamc/signin.dart';
 
 class Login extends StatefulWidget {
@@ -66,7 +67,10 @@ class _LoginState extends State<Login> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Implement login functionality
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Main()),
+                  );
                 },
                 child: const Text('ログイン'),
                 style: ElevatedButton.styleFrom(
