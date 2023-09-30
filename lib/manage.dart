@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:teamc/home_page.dart';
 import 'package:teamc/page1.dart';
-import 'package:teamc/page2.dart';
+
+import 'create_post.dart';
 
 class Manege extends StatefulWidget {
   const Manege({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _ManegeState extends State<Manege> {
   // 表示するページ一覧
   List<Widget> pages = [
     const HomePage(),
-    AddPage(),
+    CreatePost(),
     Page1(),
   ];
 
@@ -52,8 +53,8 @@ class _ManegeState extends State<Manege> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue,
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (builder) => AddPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CreatePost()));
             },
             child: const Icon(Icons.send)
             // Icon(Icons.add),

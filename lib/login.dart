@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teamc/manage.dart';
-import 'package:teamc/signin.dart';
-
+import 'package:teamc/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -51,24 +50,16 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 50,
-            width: 300,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<void>(
-                    builder: (builder) => const Manege(),
-                  ),
-                );
-              },
-              child: const Text('ログイン'),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'パスワード',
                 ),
               ),
             ),
@@ -83,7 +74,7 @@ class _LoginState extends State<Login> {
                     // Navigate to the next screen
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Main()),
+                      MaterialPageRoute(builder: (context) => const Manege()),
                     );
                   } else {
                     setState(() {
