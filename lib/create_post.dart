@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Consult_Choices { both_consult, girl_consult, boy_consult }
 
@@ -12,12 +13,36 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  // late final String gender;
+  // late final String advise;
   Consult_Choices? _consultChoice = Consult_Choices.both_consult;
   Subject_Choices? _subjectChoice = Subject_Choices.both_subject;
-  final _userInputController = TextEditingController();
+  final TextEditingController confessionSentence = TextEditingController();
+
+  // コントローラーの破棄
+  // @override
+  // void dispose() {
+  //   confessionSentence.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    CollectionReference confession = firestore.collection('confessions');
+
+    Future<void> confessionAdd(String confessionSentence) {
+      return confession
+          .add({
+            'confession': confessionSentence,
+            // 'gender': gender,
+            // 'advise_gender': advise,
+          })
+          .then((value) => print("告白追加 "))
+          .catchError((error) => print("告白追加失敗: $error"));
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -38,7 +63,7 @@ class _CreatePostState extends State<CreatePost> {
                 width: 300,
                 height: 100,
                 child: TextField(
-                  controller: _userInputController,
+                  controller: confessionSentence,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -141,7 +166,9 @@ class _CreatePostState extends State<CreatePost> {
                           ),
                           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          confessionAdd(confessionSentence.text);
+                        },
                         child: const Text(
                           "投稿する",
                           style: TextStyle(
