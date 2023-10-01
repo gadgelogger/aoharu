@@ -1,9 +1,8 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teamc/home_page.dart';
 
-import 'ai_check/ai_check_page.dart';
+import 'ai_check/ai_check_page2.dart';
 import 'create_post.dart';
 
 class Manege extends StatefulWidget {
@@ -25,9 +24,7 @@ class _ManegeState extends State<Manege> {
   List<Widget> pages = [
     const HomePage(),
     CreatePost(),
-    const ProviderScope(
-      child: AiCheckPage(),
-    )
+    const AiCheck2(),
   ];
 
   @override
