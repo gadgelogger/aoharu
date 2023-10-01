@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:teamc/home_page.dart';
 import 'package:teamc/manage.dart';
+import 'package:teamc/show_snack_bar.dart';
 import 'package:teamc/signup.dart';
 
 class Login extends StatefulWidget {
@@ -110,16 +110,17 @@ class _LoginState extends State<Login> {
                       });
 
                       // ログインが成功したら画面遷移する
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute<void>(
+                          builder: (builder) => const Manege(),
+                        ),
                       );
                     } catch (e) {
                       // ログインに失敗した場合
                       setState(() {
                         infoText = "ログインNG：${e.toString()}";
                       });
+                      showSnackBar(context, "メールアドレスまたはパスワードが違います。");
                     }
                   } else {
                     setState(() {

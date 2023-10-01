@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:teamc/home_page.dart';
+import 'package:teamc/show_snack_bar.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -74,6 +74,7 @@ class _SignupState extends State<Signup> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
