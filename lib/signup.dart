@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teamc/manage.dart';
 import 'package:teamc/show_snack_bar.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _SignupState extends State<Signup> {
 
   // ボタンを押したときの処理
   void _onPressed() async {
+    EasyLoading.show();
     if (!_isChecked) {
       return null;
     }
@@ -63,16 +66,28 @@ class _SignupState extends State<Signup> {
         'email': user.email,
         'id': user.uid,
       });
+      // サインインが成功したら画面遷移する
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Manege()),
+      );
 
       // サインインが成功したらログイン画面に画面遷移する
       Navigator.pop(context);
       showSnackBar(context, "アカウントを新規作成しました！");
+
     } catch (e) {
       // 登録に失敗した場合
       setState(() {
         infoText = "登録NG：${e.toString()}";
       });
+      if (_emailController.text.isEmpty ||
+          _nameController.text.isEmpty ||
+          _passwordController.text.isEmpty) {
+        showSnackBar(context, '値を全て入力してください。');
+      }
     }
+    EasyLoading.dismiss();
   }
 
   @override
@@ -100,13 +115,15 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             ),
-            const SizedBox(height: 150),
+            const SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'ニックネーム',
                 ),
               ),
@@ -116,8 +133,10 @@ class _SignupState extends State<Signup> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'メールアドレス',
                 ),
               ),
@@ -128,8 +147,10 @@ class _SignupState extends State<Signup> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'パスワード',
                 ),
               ),
@@ -142,6 +163,7 @@ class _SignupState extends State<Signup> {
                   Checkbox(
                     value: _isChecked,
                     onChanged: _onCheck,
+                    activeColor: Colors.black,
                   ),
                   const Text('利用規約とプライバシーポリシーに同意します'),
                 ],
@@ -155,6 +177,7 @@ class _SignupState extends State<Signup> {
                 children: <Widget>[
                   const Text('性別：'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '男性',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -163,6 +186,7 @@ class _SignupState extends State<Signup> {
                   ),
                   const Text('男性'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '女性',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -171,6 +195,7 @@ class _SignupState extends State<Signup> {
                   ),
                   const Text('女性'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '無回答',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -191,6 +216,7 @@ class _SignupState extends State<Signup> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
+                  backgroundColor: Colors.black,
                   elevation: 0,
                 ),
               ),
@@ -204,7 +230,7 @@ class _SignupState extends State<Signup> {
                   Navigator.pop(context);
                 },
                 child: const Text(
-                  '戻る',
+                  'ログイン',
                   style: TextStyle(color: Colors.black),
                 ),
                 style: ElevatedButton.styleFrom(

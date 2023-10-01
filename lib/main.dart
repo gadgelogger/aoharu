@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:teamc/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async {
   // OpenAiのAPIキー設定
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: EasyLoading.init(),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.brown,
