@@ -31,28 +31,42 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(('ホーム')),
-      ),
-      body: ListView.builder(
-        itemCount: _users.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              SizedBox(
-                width: 500,
-                height: 300,
-                child: Stack(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        height: 160,
-                        width: 280,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(34),
-                          ),
-                          child: Column(
+      body: Column(
+        children: [
+          SizedBox(
+            width: 500,
+            height: 300,
+            child: Stack(
+              children: [
+                Center(
+                  child: SizedBox(
+                    height: 160,
+                    width: 280,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(34),
+                      ),
+                      child: const Column(
+                        children: [Text('Atom'), Text('好きです。付き合ってください。')],
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 150,
+                  left: 200,
+                  child: SizedBox(
+                    height: 100,
+                    width: 250,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(34),
+                      ),
+                      elevation: 10,
+                      child: const Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('Atom'),
                               Text(_users[index]['confession'])

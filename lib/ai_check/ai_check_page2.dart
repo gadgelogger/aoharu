@@ -13,7 +13,8 @@ class AiCheck2 extends StatefulWidget {
 class AiCheckPage2 extends State<AiCheck2> {
   TextEditingController messageController = TextEditingController(text: '');
 
-  TextEditingController aiTextController = TextEditingController(text: 'Aiが回答します！');
+  TextEditingController aiTextController =
+      TextEditingController(text: 'Aiが回答します！');
 
   bool isWaiting = false;
 
@@ -22,177 +23,171 @@ class AiCheckPage2 extends State<AiCheck2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('AI添削'),
-        ),
         body: SafeArea(
-          child: Expanded(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Expanded(
-                            // 入力画面
-                            child: Container(
-                          height: 100,
-                          margin: const EdgeInsets.all(5.0),
-                          padding: const EdgeInsets.all(5.0),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(10),
+      child: Expanded(
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                        // 入力画面
+                        child: Container(
+                      height: 100,
+                      margin: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextField(
+                        controller: messageController,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: '恋愛の言葉を入力してください',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
                           ),
-                          child: TextField(
-                            controller: messageController,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              hintText: '恋愛の言葉を入力してください',
-                              hintStyle: TextStyle(color: Colors.grey),
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 12,
-                                horizontal: 16,
-                              ),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        )),
-                        SizedBox(
-                          width: 200,
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(20), //こちらを適用
-                              ),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 0, 0),
-                            ),
-                              onPressed: () async {
-                                EasyLoading.show();
-
-                                if (messageController.text.isEmpty) {
-                                  EasyLoading.dismiss();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('メッセージを入力してください'),
-                                    ),
-                                  );
-                                } else {
-                                  // 実行する
-                                  final sendMessage22 = sendMessage(
-                                    messageController.text,
-                                  );
-
-                                  isWaiting = true;
-                                  await sendMessage22;
-                                  isWaiting = false;
-
-                                  EasyLoading.dismiss();
-                                }
-
-                            },
-                            child: const Text(
-                              "Aiに相談する",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          border: InputBorder.none,
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                Container(
-                    color: Colors.grey,
-                    height: 100,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              Radio(
-                                  value: 1,
-                                  groupValue: 'null',
-                                  onChanged: (index) {}),
-                              Expanded(child: Text('RB 1'))
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              // Radio(
-                              //     value: Consult_Choices.both_consult,
-                              //     groupValue: consultChoice,
-                              //   onChanged: (Consult_Choices? value) {
-                              //     setState(() {
-                              //       consultChoice = value;
-                              //     });
-                              //   },
-                              //     ),
-                              Expanded(child: Text('Btn Radio 2'))
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              Radio(
-                                  value: 1,
-                                  groupValue: 'null',
-                                  onChanged: (index) {}),
-                              Expanded(
-                                child: Text('Rad 3'),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     )),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), //こちらを適用
+                          ),
+                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        onPressed: () async {
+                          EasyLoading.show();
 
-                // Aiの回答部分
-                Expanded(
-                    child: Container(
-                  margin: const EdgeInsets.all(5.0),
-                  padding: const EdgeInsets.all(5.0),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                      enabled: true,
-                      readOnly: true,
-                      controller: aiTextController,
-                      maxLines: null,
-                      decoration: const InputDecoration(
-                        hintText: 'Aiが回答します。',
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
+                          if (messageController.text.isEmpty) {
+                            EasyLoading.dismiss();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('メッセージを入力してください'),
+                              ),
+                            );
+                          } else {
+                            // 実行する
+                            final sendMessage22 = sendMessage(
+                              messageController.text,
+                            );
+
+                            isWaiting = true;
+                            await sendMessage22;
+                            isWaiting = false;
+
+                            EasyLoading.dismiss();
+                          }
+                        },
+                        child: const Text(
+                          "Aiに相談する",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 16,
-                        ),
-                        border: InputBorder.none,
+                      ),
                     ),
-                  ),
-                )),
-              ],
+                  ],
+                ),
+              ),
             ),
-          ),
-        ));
+
+            Container(
+                color: Colors.grey,
+                height: 100,
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Radio(
+                              value: 1,
+                              groupValue: 'null',
+                              onChanged: (index) {}),
+                          const Expanded(child: Text('RB 1'))
+                        ],
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          // Radio(
+                          //     value: Consult_Choices.both_consult,
+                          //     groupValue: consultChoice,
+                          //   onChanged: (Consult_Choices? value) {
+                          //     setState(() {
+                          //       consultChoice = value;
+                          //     });
+                          //   },
+                          //     ),
+                          Expanded(child: Text('Btn Radio 2'))
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Radio(
+                              value: 1,
+                              groupValue: 'null',
+                              onChanged: (index) {}),
+                          const Expanded(
+                            child: Text('Rad 3'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+
+            // Aiの回答部分
+            Expanded(
+                child: Container(
+              margin: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: TextField(
+                enabled: true,
+                readOnly: true,
+                controller: aiTextController,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  hintText: 'Aiが回答します。',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            )),
+          ],
+        ),
+      ),
+    ));
   }
 
   // メッセージを送信

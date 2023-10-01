@@ -41,7 +41,7 @@ class _ManegeState extends State<Manege> {
       ),
       const TabItem(
         icon: Icons.chat,
-        title: '添削',
+        title: 'AIに相談する',
       )
     ];
 
