@@ -33,8 +33,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  hooks_riverpod: ^2.3.0
+  dart_openai: ^1.5.5
+  riverpod_annotation: ^2.0.0
+  flutter_dotenv: ^5.0.2
+  flutter_hooks: ^0.18.6
   convex_bottom_bar: ^3.2.0
   firebase_core: ^2.16.0
+  firebase_auth: ^4.10.0
+  cloud_firestore: ^4.9.2
   flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
@@ -44,6 +51,8 @@ flutter_icons:
   adaptive_icon_background: 'white'
   # adaptive_icon_foreground: 'assets/images/aoharu-icon-main-256.PNG'
 
+  
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

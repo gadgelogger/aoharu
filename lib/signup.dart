@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teamc/show_snack_bar.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -8,8 +11,70 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  //フィールドコントローラー
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isChecked = false;
+
+  // 選択された性別
+  String selectedGender = "";
+  // 登録・ログインに関する情報を表示
+  String infoText = "";
+
+  // チェックボックスの状態を更新する
+  void _onCheck(bool? value) {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+  }
+
+  // 性別選択の状態を更新する
+  void _onGenderSelected(String value) {
+    setState(() {
+      selectedGender = value;
+    });
+  }
+
+  // ボタンを押したときの処理
+  void _onPressed() async {
+    if (!_isChecked) {
+      return null;
+    }
+
+    try {
+      // メール/パスワードでユーザー登録
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // 登録したユーザー情報
+      final User user = result.user!;
+      setState(() {
+        infoText = "登録OK:${user.email}";
+      });
+      // Firestoreにユーザー情報を追加する
+      await FirebaseFirestore.instance.collection('users').doc().set({
+        'name': _nameController.text,
+        'sex': selectedGender,
+        'email': user.email,
+        'uid': user.uid,
+      });
+      // サインインが成功したら画面遷移する
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } catch (e) {
+      // 登録に失敗した場合
+      setState(() {
+        infoText = "登録NG:${e.toString()}";
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +101,18 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 150),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'ニックネーム',
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -65,10 +141,44 @@ class _SignupState extends State<Signup> {
               child: Row(
                 children: <Widget>[
                   Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {},
+                    value: _isChecked,
+                    onChanged: _onCheck,
                   ),
                   const Text('利用規約とプライバシーポリシーに同意します'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text('性別：'),
+                  Radio<String>(
+                    value: '男性',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('男性'),
+                  Radio<String>(
+                    value: '女性',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('女性'),
+                  Radio<String>(
+                    value: '無回答',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('無回答'),
                 ],
               ),
             ),
@@ -76,9 +186,7 @@ class _SignupState extends State<Signup> {
               height: 50,
               width: 300,
               child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Implement login functionality
-                },
+                onPressed: _isChecked ? _onPressed : null,
                 child: const Text('新規会員登録'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
