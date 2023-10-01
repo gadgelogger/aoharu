@@ -10,7 +10,7 @@ class AiCheck2 extends StatefulWidget {
 }
 
 class AiCheckPage2 extends State<AiCheck2> {
-  TextEditingController messageController = TextEditingController(text: 'Flutterとはなんですか？');
+  TextEditingController messageController = TextEditingController(text: '');
 
   TextEditingController aiTextController = TextEditingController(text: 'Aiが回答します！');
 
@@ -46,15 +46,10 @@ class AiCheckPage2 extends State<AiCheck2> {
                           child: TextField(
                             controller: messageController,
                             maxLines: null,
-                            decoration: InputDecoration(
-                              hintText: 'メッセージを入力',
-                              hintStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onBackground
-                                    .withOpacity(0.6),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
+                            decoration: const InputDecoration(
+                              hintText: '恋愛の言葉を入力してください',
+                              hintStyle: TextStyle(color: Colors.grey),
+                              contentPadding: EdgeInsets.symmetric(
                                 vertical: 12,
                                 horizontal: 16,
                               ),
@@ -165,31 +160,31 @@ class AiCheckPage2 extends State<AiCheck2> {
                 // Aiの回答部分
                 Expanded(
                     child: Container(
-                        margin: const EdgeInsets.all(5.0),
-                        padding: const EdgeInsets.all(5.0),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(10),
+                  margin: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                      enabled: true,
+                      readOnly: true,
+                      controller: aiTextController,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: 'Aiが回答します。',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        child: TextField(
-                          enabled: false,
-                          controller: aiTextController,
-                          maxLines: null,
-                          decoration: InputDecoration(
-                            hintText: 'Aiが回答します。',
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 16,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                        )
-                    )
-                ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        border: InputBorder.none,
+                    ),
+                  ),
+                )),
               ],
             ),
           ),
