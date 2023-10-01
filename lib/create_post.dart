@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Consult_Choices { both_consult, girl_consult, boy_consult }
 
@@ -13,6 +14,8 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  // late final String gender;
+  // late final String advise;
   Consult_Choices? _consultChoice = Consult_Choices.both_consult;
   Subject_Choices? _subjectChoice = Subject_Choices.both_subject;
   final TextEditingController confessionSentence = TextEditingController();
@@ -34,11 +37,12 @@ class _CreatePostState extends State<CreatePost> {
       return confession
           .add({
             'confession': confessionSentence,
-            // ‘gender': gender,
-            // ‘advise_gender': advise,
+            // 'gender': gender,
+            // 'advise_gender': advise,
           })
-          .then((value) => print('告白追加 '))
-          .catchError((error) => print('告白追加失敗: $error'));
+          .then((value) => print("告白追加 "))
+          .catchError((error) => print("告白追加失敗: $error"));
+
     }
 
     return Scaffold(
@@ -166,10 +170,10 @@ class _CreatePostState extends State<CreatePost> {
                         ),
                         onPressed: () {
                           confessionAdd(confessionSentence.text);
-                          print(confessionSentence);
                         },
-                        child: Text(
-                          '投稿する',
+                        child: const Text(
+                          "投稿する",
+
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
