@@ -75,6 +75,11 @@ class _SignupState extends State<Signup> {
       setState(() {
         infoText = "登録NG:${e.toString()}";
       });
+      if (_emailController.text.isEmpty ||
+          _nameController.text.isEmpty ||
+          _passwordController.text.isEmpty) {
+        showSnackBar(context, '値を全て入力してください。');
+      }
     }
     EasyLoading.dismiss();
   }
@@ -104,13 +109,15 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             ),
-            const SizedBox(height: 150),
+            const SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'ニックネーム',
                 ),
               ),
@@ -120,8 +127,10 @@ class _SignupState extends State<Signup> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'メールアドレス',
                 ),
               ),
@@ -132,8 +141,10 @@ class _SignupState extends State<Signup> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   labelText: 'パスワード',
                 ),
               ),
@@ -146,6 +157,7 @@ class _SignupState extends State<Signup> {
                   Checkbox(
                     value: _isChecked,
                     onChanged: _onCheck,
+                    activeColor: Colors.black,
                   ),
                   const Text('利用規約とプライバシーポリシーに同意します'),
                 ],
@@ -159,6 +171,7 @@ class _SignupState extends State<Signup> {
                 children: <Widget>[
                   const Text('性別：'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '男性',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -167,6 +180,7 @@ class _SignupState extends State<Signup> {
                   ),
                   const Text('男性'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '女性',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -175,6 +189,7 @@ class _SignupState extends State<Signup> {
                   ),
                   const Text('女性'),
                   Radio<String>(
+                    activeColor: Colors.black,
                     value: '無回答',
                     groupValue: selectedGender,
                     onChanged: (String? value) {
@@ -195,6 +210,7 @@ class _SignupState extends State<Signup> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
+                  backgroundColor: Colors.black,
                   elevation: 0,
                 ),
               ),
@@ -208,7 +224,7 @@ class _SignupState extends State<Signup> {
                   Navigator.pop(context);
                 },
                 child: const Text(
-                  '戻る',
+                  'ログイン',
                   style: TextStyle(color: Colors.black),
                 ),
                 style: ElevatedButton.styleFrom(
