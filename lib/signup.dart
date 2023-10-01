@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:teamc/show_snack_bar.dart';
@@ -11,14 +12,13 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   //フィールドコントローラー
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isChecked = false;
 
-  // 入力されたメールアドレス
-  String newUserEmail = "";
-  // 入力されたパスワード
-  String newUserPassword = "";
+  // 選択された性別
+  String selectedGender = "";
   // 登録・ログインに関する情報を表示
   String infoText = "";
 
@@ -29,7 +29,14 @@ class _SignupState extends State<Signup> {
     });
   }
 
-// ボタンを押したときの処理
+  // 性別選択の状態を更新する
+  void _onGenderSelected(String value) {
+    setState(() {
+      selectedGender = value;
+    });
+  }
+
+  // ボタンを押したときの処理
   void _onPressed() async {
     if (!_isChecked) {
       return null;
@@ -39,8 +46,8 @@ class _SignupState extends State<Signup> {
       // メール/パスワードでユーザー登録
       final FirebaseAuth auth = FirebaseAuth.instance;
       final UserCredential result = await auth.createUserWithEmailAndPassword(
-        email: newUserEmail,
-        password: newUserPassword,
+        email: _emailController.text,
+        password: _passwordController.text,
       );
 
       // 登録したユーザー情報
@@ -49,10 +56,17 @@ class _SignupState extends State<Signup> {
         infoText = "登録OK：${user.email}";
       });
 
+      // Firestoreにユーザー情報を追加する
+      await FirebaseFirestore.instance.collection('users').doc().set({
+        'name': _nameController.text,
+        'gender': selectedGender,
+        'email': user.email,
+        'id': user.uid,
+      });
+
       // サインインが成功したらログイン画面に画面遷移する
       Navigator.pop(context);
       showSnackBar(context, "アカウントを新規作成しました！");
-
     } catch (e) {
       // 登録に失敗した場合
       setState(() {
@@ -86,7 +100,18 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 150),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'ニックネーム',
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -95,11 +120,6 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'メールアドレス',
                 ),
-                onChanged: (String value) {
-                  setState(() {
-                    newUserEmail = value;
-                  });
-                },
               ),
             ),
             const SizedBox(height: 20),
@@ -112,11 +132,6 @@ class _SignupState extends State<Signup> {
                   border: OutlineInputBorder(),
                   labelText: 'パスワード',
                 ),
-                onChanged: (String value) {
-                  setState(() {
-                    newUserPassword = value;
-                  });
-                },
               ),
             ),
             const SizedBox(height: 10),
@@ -129,6 +144,40 @@ class _SignupState extends State<Signup> {
                     onChanged: _onCheck,
                   ),
                   const Text('利用規約とプライバシーポリシーに同意します'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text('性別：'),
+                  Radio<String>(
+                    value: '男性',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('男性'),
+                  Radio<String>(
+                    value: '女性',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('女性'),
+                  Radio<String>(
+                    value: '無回答',
+                    groupValue: selectedGender,
+                    onChanged: (String? value) {
+                      _onGenderSelected(value!);
+                    },
+                  ),
+                  const Text('無回答'),
                 ],
               ),
             ),

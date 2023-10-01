@@ -24,8 +24,8 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(34),
                       ),
-                      child: Column(
-                        children: const [Text('Atom'), Text('好きです。付き合ってください。')],
+                      child: const Column(
+                        children: [Text('Atom'), Text('好きです。付き合ってください。')],
                       ),
                     ),
                   ),
@@ -41,23 +41,23 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(34),
                       ),
                       elevation: 10,
-                      child: Column(
+                      child: const Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text('いいね👍'),
                               Icon(Icons.account_circle_outlined)
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text('うんうん'),
                               Icon(Icons.account_circle_outlined)
                             ],
                           ),
-                          const Icon(Icons.chat)
+                          Icon(Icons.chat)
                         ],
                       ),
                     ),
