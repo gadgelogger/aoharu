@@ -230,7 +230,7 @@ class _SignupState extends State<Signup> {
                   Navigator.pop(context);
                 },
                 child: const Text(
-                  'ログイン',
+                  '戻る',
                   style: TextStyle(color: Colors.black),
                 ),
                 style: ElevatedButton.styleFrom(

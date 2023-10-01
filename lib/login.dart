@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                     );
                   },
                   child: const Text(
-                    'サインイン',
+                    '新規登録',
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ElevatedButton.styleFrom(
