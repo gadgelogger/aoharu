@@ -1,5 +1,6 @@
 import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 // Aiに相談する画面
 class AiCheck2 extends StatefulWidget {
@@ -70,8 +71,10 @@ class AiCheckPage2 extends State<AiCheck2> {
                                   const Color.fromARGB(255, 0, 0, 0),
                             ),
                               onPressed: () async {
+                                EasyLoading.show();
 
                                 if (messageController.text.isEmpty) {
+                                  EasyLoading.dismiss();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('メッセージを入力してください'),
@@ -87,6 +90,7 @@ class AiCheckPage2 extends State<AiCheck2> {
                                   await sendMessage22;
                                   isWaiting = false;
 
+                                  EasyLoading.dismiss();
                                 }
 
                             },
