@@ -23,8 +23,8 @@ class _ManegeState extends State<Manege> {
   // 表示するページ一覧
   List<Widget> pages = [
     const HomePage(),
-    CreatePost(),
-    Page1(),
+    const CreatePost(),
+    const Page1(),
   ];
 
   @override
