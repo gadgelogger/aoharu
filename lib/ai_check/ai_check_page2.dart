@@ -1,6 +1,7 @@
 import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 
+// Aiに相談する画面
 class AiCheck2 extends StatefulWidget {
   const AiCheck2({Key? key}) : super(key: key);
 
@@ -9,7 +10,6 @@ class AiCheck2 extends StatefulWidget {
 }
 
 class AiCheckPage2 extends State<AiCheck2> {
-  // final messages = ref.watch(messagesProvider);
   TextEditingController messageController = TextEditingController(text: 'Flutterとはなんですか？');
 
   TextEditingController aiTextController = TextEditingController(text: 'Aiが回答します！');
@@ -194,17 +194,17 @@ class AiCheckPage2 extends State<AiCheck2> {
             ),
           ),
         ));
-
-
-
   }
 
   // メッセージを送信
   Future<void> sendMessage(String message) async {
+    // インデックスモデル
+    String indexText = 'あなたは恋愛マスターです。以下の告白の文章を添削してください。';
 
     // メッセージをuserロールでモデル化
-    OpenAIChatCompletionChoiceMessageModel newUserMessage = OpenAIChatCompletionChoiceMessageModel(
-      content: message,
+    OpenAIChatCompletionChoiceMessageModel newUserMessage =
+        OpenAIChatCompletionChoiceMessageModel(
+      content: indexText + message,
       role: OpenAIChatMessageRole.user,
     );
 
