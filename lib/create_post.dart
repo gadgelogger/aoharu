@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -6,7 +7,7 @@ enum Consult_Choices { both_consult, girl_consult, boy_consult }
 enum Subject_Choices { both_subject, girl_subject, boy_subject }
 
 class CreatePost extends StatefulWidget {
-  const CreatePost({Key? key}) : super(key: key);
+  CreatePost({Key? key}) : super(key: key);
 
   @override
   State<CreatePost> createState() => _CreatePostState();
@@ -41,6 +42,7 @@ class _CreatePostState extends State<CreatePost> {
           })
           .then((value) => print("告白追加 "))
           .catchError((error) => print("告白追加失敗: $error"));
+
     }
 
     return Scaffold(
@@ -48,15 +50,15 @@ class _CreatePostState extends State<CreatePost> {
         child: Center(
           child: Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 60,
                 height: 60,
               ),
-              const Text(
-                "告白の言葉",
+              Text(
+                '告白の言葉',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -68,12 +70,12 @@ class _CreatePostState extends State<CreatePost> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    label: const Text("告白の言葉を入力してください"),
+                    label: Text('告白の言葉を入力してください'),
                   ),
                 ),
               ),
-              const Text(
-                "恋愛相談対象を選択してください",
+              Text(
+                '恋愛相談対象を選択してください',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Container(
@@ -82,7 +84,7 @@ class _CreatePostState extends State<CreatePost> {
                   children: [
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("両方"),
+                      title: Text('両方'),
                       value: Consult_Choices.both_consult,
                       groupValue: _consultChoice,
                       onChanged: (Consult_Choices? value) {
@@ -93,7 +95,7 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("女性"),
+                      title: Text('女性'),
                       value: Consult_Choices.girl_consult,
                       groupValue: _consultChoice,
                       onChanged: (Consult_Choices? value) {
@@ -104,7 +106,7 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("男性"),
+                      title: Text('男性'),
                       value: Consult_Choices.boy_consult,
                       groupValue: _consultChoice,
                       onChanged: (Consult_Choices? value) {
@@ -113,16 +115,16 @@ class _CreatePostState extends State<CreatePost> {
                         });
                       },
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "恋愛対象を選択してください",
+                    Text(
+                      '恋愛対象を選択してください',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("両方"),
+                      title: Text('両方'),
                       value: Subject_Choices.both_subject,
                       groupValue: _subjectChoice,
                       onChanged: (Subject_Choices? value) {
@@ -133,7 +135,7 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("女性"),
+                      title: Text('女性'),
                       value: Subject_Choices.girl_subject,
                       groupValue: _subjectChoice,
                       onChanged: (Subject_Choices? value) {
@@ -144,7 +146,7 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       controlAffinity: ListTileControlAffinity.trailing,
-                      title: const Text("両方"),
+                      title: Text('両方'),
                       value: Subject_Choices.boy_subject,
                       groupValue: _subjectChoice,
                       onChanged: (Subject_Choices? value) {
@@ -153,7 +155,7 @@ class _CreatePostState extends State<CreatePost> {
                         });
                       },
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     SizedBox(
@@ -164,13 +166,14 @@ class _CreatePostState extends State<CreatePost> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20), //こちらを適用
                           ),
-                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                          backgroundColor: Color.fromARGB(255, 0, 0, 0),
                         ),
                         onPressed: () {
                           confessionAdd(confessionSentence.text);
                         },
                         child: const Text(
                           "投稿する",
+
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -178,7 +181,7 @@ class _CreatePostState extends State<CreatePost> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     SizedBox(
@@ -189,12 +192,11 @@ class _CreatePostState extends State<CreatePost> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20), //こちらを適用
                           ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 255, 255),
+                          backgroundColor: Color.fromARGB(255, 255, 255, 255),
                         ),
                         onPressed: () {},
-                        child: const Text(
-                          "AIに相談する",
+                        child: Text(
+                          'AIに相談する',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
