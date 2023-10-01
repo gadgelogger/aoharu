@@ -39,7 +39,8 @@ class _CreatePostState extends State<CreatePost> {
             'confession': confessionSentence,
             'gender': _consultChoice.toString(),
             'advise_gender': _subjectChoice.toString(),
-            'id': FirebaseAuth.instance.currentUser!.uid
+            'id': FirebaseAuth.instance.currentUser!.uid,
+            'time': Timestamp.now(),
           })
           .then((value) => print('告白追加 '))
           .catchError((error) => print('告白追加失敗: $error'));
@@ -168,15 +169,18 @@ class _CreatePostState extends State<CreatePost> {
                           ),
                           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                         ),
-                        onPressed: () {
-                          confessionAdd(confessionSentence.text);
-                          print(confessionSentence);
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => const Manege()),
-                              (route) => false);
-                        },
+                        onPressed: confessionSentence.text.isNotEmpty
+                            ? () {
+                                confessionAdd(confessionSentence.text);
+                                print(confessionSentence
+                                    .text); // .textを追加して、テキストの内容を出力
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) => const Manege()),
+                                    (route) => false);
+                              }
+                            : null, // ボタンを無効化
                         child: const Text(
                           '投稿する',
                           style: TextStyle(
