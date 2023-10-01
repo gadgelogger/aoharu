@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teamc/manage.dart';
 import 'package:teamc/show_snack_bar.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _SignupState extends State<Signup> {
 
   // ボタンを押したときの処理
   void _onPressed() async {
+    EasyLoading.show();
     if (!_isChecked) {
       return null;
     }
@@ -65,7 +68,7 @@ class _SignupState extends State<Signup> {
       // サインインが成功したら画面遷移する
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const Manege()),
       );
     } catch (e) {
       // 登録に失敗した場合
@@ -73,8 +76,8 @@ class _SignupState extends State<Signup> {
         infoText = "登録NG:${e.toString()}";
       });
     }
+    EasyLoading.dismiss();
   }
-
 
   @override
   Widget build(BuildContext context) {
