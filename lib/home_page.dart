@@ -1,32 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final Query<Map<String, dynamic>> _usersRef = FirebaseFirestore.instance
-      .collection('confessions')
-      .orderBy('time', descending: false);
-
-  List<DocumentSnapshot> _users = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getUsers();
-  }
-
-  Future<void> _getUsers() async {
-    QuerySnapshot querySnapshot = await _usersRef.get();
-    setState(() {
-      _users = querySnapshot.docs;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,52 +43,27 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Atom'),
-                              Text(_users[index]['confession'])
+                              Text('いいね👍'),
+                              Icon(Icons.account_circle_outlined)
                             ],
                           ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 150,
-                      left: 200,
-                      child: SizedBox(
-                        height: 100,
-                        width: 250,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(34),
-                          ),
-                          elevation: 10,
-                          child: const Column(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('いいね👍'),
-                                  Icon(Icons.account_circle_outlined)
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('うんうん'),
-                                  Icon(Icons.account_circle_outlined)
-                                ],
-                              ),
-                              Icon(Icons.chat)
+                              Text('うんうん'),
+                              Icon(Icons.account_circle_outlined)
                             ],
                           ),
-                        ),
+                          Icon(Icons.chat)
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
