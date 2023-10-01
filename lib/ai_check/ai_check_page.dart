@@ -23,6 +23,7 @@ class Messages extends _$Messages {
 
   // メッセージを送信
   Future<void> sendMessage(String message) async {
+
     // メッセージをuserロールでモデル化
     final newUserMessage = OpenAIChatCompletionChoiceMessageModel(
       content: message,
@@ -33,6 +34,7 @@ class Messages extends _$Messages {
       ...state,
       newUserMessage,
     ];
+
     // ChatGPTに聞く
     final chatCompletion = await OpenAI.instance.chat.create(
       model: 'gpt-3.5-turbo',
@@ -53,7 +55,7 @@ class AiCheckPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messages = ref.watch(messagesProvider);
+    List<OpenAIChatCompletionChoiceMessageModel> messages = ref.watch(messagesProvider);
     final messageController = useTextEditingController(text: 'Flutterとはなんですか？');
     final screenWidth = MediaQuery.of(context).size.width;
     final isWaiting = useState(false);
@@ -113,8 +115,7 @@ class AiCheckPage extends HookConsumerWidget {
                     ),
                   );
                 },
-                separatorBuilder: (context, index) =>
-                const SizedBox(height: 16),
+                separatorBuilder: (context, index) => const SizedBox(height: 16),
               ),
             ),
             // 送信フォーム
@@ -163,10 +164,9 @@ class AiCheckPage extends HookConsumerWidget {
                               ),
                             );
                           } else {
-                            final sendMessage =
-                            ref.read(messagesProvider.notifier).sendMessage(
-                              messageController.text,
-                            );
+
+                            final sendMessage = ref.read(messagesProvider.notifier).sendMessage(messageController.text);
+
                             isWaiting.value = true;
                             messageController.clear();
                             await sendMessage;
