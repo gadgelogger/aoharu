@@ -19,13 +19,6 @@ class _CreatePostState extends State<CreatePost> {
   Subject_Choices? _subjectChoice = Subject_Choices.both_subject;
   final TextEditingController confessionSentence = TextEditingController();
 
-  // コントローラーの破棄
-  // @override
-  // void dispose() {
-  //   confessionSentence.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -42,8 +35,9 @@ class _CreatePostState extends State<CreatePost> {
             'id': FirebaseAuth.instance.currentUser!.uid,
             'time': Timestamp.now(),
           })
-          .then((value) => print('告白追加 '))
-          .catchError((error) => print('告白追加失敗: $error'));
+          .then((value) => print("告白追加 "))
+          .catchError((error) => print("告白追加失敗: $error"));
+
     }
 
     return Scaffold(
