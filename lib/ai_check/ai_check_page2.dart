@@ -20,6 +20,9 @@ class AiCheckPage2 extends State<AiCheck2> {
 
   String answerAi = '';
 
+  // 選択中の性別
+  int selectGender  = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +107,7 @@ class AiCheckPage2 extends State<AiCheck2> {
             ),
 
             Container(
-                color: Colors.grey,
+                color: Colors.white,
                 height: 100,
                 width: double.infinity,
                 child: Row(
@@ -115,27 +118,14 @@ class AiCheckPage2 extends State<AiCheck2> {
                       child: Row(
                         children: [
                           Radio(
-                              value: 1,
-                              groupValue: 'null',
-                              onChanged: (index) {}),
-                          const Expanded(child: Text('RB 1'))
-                        ],
-                      ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          // Radio(
-                          //     value: Consult_Choices.both_consult,
-                          //     groupValue: consultChoice,
-                          //   onChanged: (Consult_Choices? value) {
-                          //     setState(() {
-                          //       consultChoice = value;
-                          //     });
-                          //   },
-                          //     ),
-                          Expanded(child: Text('Btn Radio 2'))
+                              value: 0,
+                              groupValue: selectGender,
+                              onChanged: (int? index) {
+                                setState(() {
+                                  selectGender = index!;
+                                });
+                              }),
+                          const Expanded(child: Text('両方'),),
                         ],
                       ),
                     ),
@@ -145,10 +135,30 @@ class AiCheckPage2 extends State<AiCheck2> {
                         children: [
                           Radio(
                               value: 1,
-                              groupValue: 'null',
-                              onChanged: (index) {}),
-                          const Expanded(
-                            child: Text('Rad 3'),
+                              groupValue: selectGender,
+                              onChanged: (int? index) {
+                                setState(() {
+                                  selectGender = index!;
+                                });
+                              }),
+                          const Expanded(child: Text('女性'),),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Radio(
+                              value: 2,
+                              groupValue: selectGender,
+                              onChanged: (int? index) {
+                                setState(() {
+                                  selectGender = index!;
+                                });
+                              }),
+                          Expanded(
+                            child: Text('男性'),
                           )
                         ],
                       ),
