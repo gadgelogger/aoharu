@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:teamc/show_snack_bar.dart';
@@ -53,6 +54,14 @@ class _SignupState extends State<Signup> {
       final User user = result.user!;
       setState(() {
         infoText = "登録OK：${user.email}";
+      });
+
+      // Firestoreにユーザー情報を追加する
+      await FirebaseFirestore.instance.collection('users').doc().set({
+        'name': _nameController.text,
+        'gender': selectedGender,
+        'email': user.email,
+        'id': user.uid,
       });
 
       // サインインが成功したらログイン画面に画面遷移する
