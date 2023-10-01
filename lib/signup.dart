@@ -66,16 +66,10 @@ class _SignupState extends State<Signup> {
         'email': user.email,
         'id': user.uid,
       });
-      // サインインが成功したら画面遷移する
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Manege()),
-      );
 
       // サインインが成功したらログイン画面に画面遷移する
-      Navigator.pop(context);
       showSnackBar(context, "アカウントを新規作成しました！");
-
+      Navigator.pop(context);
     } catch (e) {
       // 登録に失敗した場合
       setState(() {
