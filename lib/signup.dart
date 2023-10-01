@@ -56,24 +56,30 @@ class _SignupState extends State<Signup> {
       // 登録したユーザー情報
       final User user = result.user!;
       setState(() {
-        infoText = "登録OK:${user.email}";
+        infoText = "登録OK：${user.email}";
       });
+
       // Firestoreにユーザー情報を追加する
       await FirebaseFirestore.instance.collection('users').doc().set({
         'name': _nameController.text,
-        'sex': selectedGender,
+        'gender': selectedGender,
         'email': user.email,
-        'uid': user.uid,
+        'id': user.uid,
       });
       // サインインが成功したら画面遷移する
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Manege()),
       );
+
+      // サインインが成功したらログイン画面に画面遷移する
+      Navigator.pop(context);
+      showSnackBar(context, "アカウントを新規作成しました！");
+
     } catch (e) {
       // 登録に失敗した場合
       setState(() {
-        infoText = "登録NG:${e.toString()}";
+        infoText = "登録NG：${e.toString()}";
       });
     }
     EasyLoading.dismiss();
