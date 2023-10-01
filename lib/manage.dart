@@ -57,7 +57,7 @@ class _ManegeState extends State<Manege> {
           color: Colors.grey,
           activeColor: Colors.black,
           backgroundColor: Colors.white,
-          shadowColor: Colors.brown,
+          shadowColor: Colors.grey,
           style: TabStyle.fixedCircle,
           items: bottomBars,
           onTap: (int index) => onTapped(index),

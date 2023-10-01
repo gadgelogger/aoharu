@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:teamc/manage.dart';
 import 'package:teamc/show_snack_bar.dart';
 import 'package:teamc/signup.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -94,6 +95,7 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   if (_emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
+                    EasyLoading.show();
                     try {
                       // メール/パスワードでログイン
                       final FirebaseAuth auth = FirebaseAuth.instance;
@@ -127,6 +129,7 @@ class _LoginState extends State<Login> {
                       _errorMessage = 'メールアドレスとパスワードを入力してください';
                     });
                   }
+                  EasyLoading.dismiss();
                 },
                 child: const Text('ログイン'),
                 style: ElevatedButton.styleFrom(

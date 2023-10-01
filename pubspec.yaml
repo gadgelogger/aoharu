@@ -43,6 +43,7 @@ dependencies:
   firebase_auth: ^4.10.0
   cloud_firestore: ^4.9.2
   flutter_launcher_icons: ^0.13.1
+  flutter_easyloading: ^3.0.5
 
 flutter_icons:
   android: true
